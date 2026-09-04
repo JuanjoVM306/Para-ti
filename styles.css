@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: #000000;
+    font-family: 'Georgia', serif;
+    display: grid;
+    place-items: center;
+    /* Unidades dinámicas para ajustarse perfectamente a móviles */
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    padding: 20px 20px 40px 20px;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* El lienzo ocupa toda la pantalla por detrás */
+#space-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    margin: auto 0;
+}
+
+.flower-wrapper {
+    position: relative;
+    width: 100%;
+    /* clamp(Mínimo, Ideal, Máximo) adapta el tamaño de la flor según el ancho y alto del móvil */
+    width: clamp(180px, 45vw, 320px);
+    max-height: 40vh;
+    margin-bottom: 20px;
+    overflow: hidden;
+    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.25));
+}
+
+.flower-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    clip-path: inset(0 0 100% 0);
+    animation: revealFlower 3.5s ease-in-out forwards;
+}
+
+@keyframes revealFlower {
+    0% {
+        clip-path: inset(0 0 100% 0);
+    }
+    100% {
+        clip-path: inset(0 0 0% 0);
+    }
+}
+
+.text-container {
+    font-size: clamp(0.95rem, 3.8vw, 1.1rem);
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+    min-height: 130px;
+    color: #e2d9cc;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    padding: 0 10px;
+}
+
+.text-container::after {
+    content: '|';
+    animation: blink 0.8s infinite;
+    opacity: 1;
+    color: #d4af37;
+    margin-left: 3px;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Ajustes específicos para teléfonos móviles en posición vertical */
+@media (max-width: 600px) {
+    body {
+        padding-bottom: 70px; /* Margen de seguridad para la barra inferior del navegador */
+    }
+
+    .flower-wrapper {
+        margin-bottom: 15px;
+    }
+}
